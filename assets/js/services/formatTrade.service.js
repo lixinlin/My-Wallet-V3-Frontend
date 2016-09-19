@@ -65,12 +65,14 @@ function formatTrade ($filter, MyWallet, $rootScope) {
 
   function success (trade) {
     let tx = addTradeDetails(trade);
+    tx['DOWNLOAD_RECEIPT'] = ' ';
     if (!trade.bitcoinReceived) { return service.processing(trade); }
 
     return {
       tx: tx,
       class: 'success',
       values: {
+        url: $rootScope.buySellDebug ? 'https://goo.gl/uXkl8O' : trade.receiptUrl,
         label: getLabel(trade),
         curr: trade.inCurrency,
         fiatAmt: trade.sendAmount / 100,
